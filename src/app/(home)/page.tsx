@@ -1,9 +1,10 @@
+"use client";
 import MainImageCarousel from "@/components/Carosel/MainImageCarousel";
 import ProductCard from "@/components/Product/ProductCard";
 import Link from "next/link";
 import productItemsData from '@/data/productIem.json';
 
-export default function Home() {
+const page=() => {
   return (
     <>
       <MainImageCarousel />
@@ -46,3 +47,4 @@ export default function Home() {
     </>
   );
 }
+export default page;

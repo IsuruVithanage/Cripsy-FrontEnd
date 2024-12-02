@@ -1,6 +1,7 @@
 "use client";
 import { FaTrash } from 'react-icons/fa';
 import { FaRegEdit } from "react-icons/fa";
+import { IoMdEye } from "react-icons/io";
 
 
 
@@ -36,6 +37,14 @@ export interface Order {
     address: string;
     postalCode: string;
     contactNo: string;
+}
+
+// Refund interface
+export interface Refund {
+    orderId: string;
+    customerName: string;
+    refundItemQty: number;
+    refundAmount: number;
 }
 
 // Column Type Definition
@@ -134,3 +143,23 @@ export const orderColumns: Column<Order>[] = [
     },
 ];
 
+//Refund Details Table
+export const refundColumns: Column<Refund>[] = [
+    { header: "Order ID", accessor: "orderId" },
+    { header: "Customer Name", accessor: "customerName" },
+    { header: "Refund Item Qty", accessor: "refundItemQty" },
+    { header: "Refund Amount", accessor: "refundAmount" },
+    {
+        header: "Action",
+        accessor: "action" as keyof Refund,
+        render: (_value, row, handlers) => (
+            <div className="flex space-x-4">
+                <FaRegEdit
+                    className="text-gray-400 hover:text-black cursor-pointer"
+                    onClick={() => handlers?.edit(row)}
+                    aria-label="Action Refund"
+                />
+            </div>
+        ),
+    }
+];

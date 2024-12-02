@@ -79,7 +79,7 @@ function TableWithPagi<T>({
               paginatedData.map((row) => {
                 const rowKey = getRowId(row);
                 return (
-                  <TableRow key={rowKey} className="border-carnation-450">
+                  <TableRow  key={rowKey} className="border-carnation-450">
                     {columns.map((column) => (
                       <TableCell key={`${rowKey}-${String(column.accessor)}`}>
                         {column.render

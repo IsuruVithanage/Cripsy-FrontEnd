@@ -1,9 +1,10 @@
+"use client";
 import React from 'react'
 import Image from 'next/image'
-import CustomButton from '../Button/CustomButton'
 import { Separator } from '@radix-ui/react-separator'
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
+import { Icon } from 'lucide-react';
 
 
 export interface RefundCardProps {
@@ -24,36 +25,38 @@ const RefundCard: React.FC<RefundCardProps> = ({
     deliveredDate,
     customerName,
 }) => {
+    function acsseptClick(): void {
+        throw new Error('Function not implemented.');
+    }
+
   return (
     
     <div className='flex items-start gap-3'>
         {/* Image */}
-        <div>
+        <div className='flex-shrink-0 p-0 rounded-lg h-full w-1/6 '>
             <Image src="/images/Refund.png" alt="Refund" width={100} height={100} />
         </div>
 
         
         {/* Action */}
-        <div >
-            <CustomButton 
-            buttonLabel=""
-            variant='outline'
-            icon={<FaRegCircleCheck className='text-green-800'/>}
-            />
+        <div className=' flex-shrink-0  mt-4 pl-8  py-3 '>
             
-            <Separator orientation="vertical" className='w-1 h-5 bg-opacity-15 bg-slate-700'/>
+            <div className='shadow-xl flex shadow-gray-500 rounded-3xl w-fit  '>
+            <FaRegCircleCheck onClick={acsseptClick} className='text-green-600 rounded-full hover:text-green-500 text-3xl'/>
+            </div>
+            
+            
+            <Separator orientation="vertical" className='w-1 h-5 bg-opacity-15 bg-slate-700 rounded-full flex'/>
 
-            <CustomButton 
-            buttonLabel=''
-            variant='outline'
-            icon={<RxCrossCircled className='text-red-800'/>}
-            />
+            <div className='shadow-xl shadow-gray-500 rounded-3xl w-fit flex '>      
+            <RxCrossCircled className='text-carnation-550 rounded-full hover:text-carnation-600 text-3xl '/>
+            </div>
 
         </div>
 
         {/* Product Details */}
-        <div>
-            <div>
+        <div className='flex-shrink-0'>
+            <div className='flex-1'>
                 <h2 className='text-3xl font-bold'>{productName}</h2>
                 <div>
                 <p>Order ID : </p> <span className='text-carnation-400'>{orderId}</span>
