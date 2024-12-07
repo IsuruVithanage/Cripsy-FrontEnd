@@ -4,7 +4,6 @@ import TableWithPagi from "@/components/Table/TableWithPagi";
 import {Order, orderColumns} from "@/components/Table/Columns";
 import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
 import {Separator} from "@radix-ui/react-separator";
-import {useRouter} from "next/navigation";
 import {getAllOrders} from "@/apis/orderApi/orderApi";
 import OrderPopup from "@/components/Admin/OrderDetailsPopup";
 import axios from "axios";
@@ -13,15 +12,16 @@ const AdminOrderDetailTable = () => {
     const [isDeleteConfirmPopupOpen, setIsDeleteConfirmPopupOpen] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const [filteredData, setFilteredData] = useState<Order[]>([]);
-    const router = useRouter();
     const [isOrderPopupOpen, setIsOrderPopupOpen] = useState(false);
 
     useEffect(() => {
         const fetchOrderDetails = async () => {
             const fetchedOrders = await getAllOrders();
+            console.log(fetchedOrders)
             setFilteredData(fetchedOrders);
         };
         fetchOrderDetails();
+
     }, []);
 
     const handleEdit = (order: Order) => {

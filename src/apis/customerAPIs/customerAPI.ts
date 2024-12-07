@@ -1,4 +1,5 @@
 import axios from "axios";
+import {showToast} from "@/components/Messages/showMessage";
 
 // Axios instance with base URL
 const api = axios.create({
@@ -6,6 +7,17 @@ const api = axios.create({
     baseURL: "http://localhost:8081"
 });
 
+
+// Fetch all customers and store in global array
+export const fetchCustomers = async () => {
+    try {
+        const response = await api.get("/api/customers");
+        return response.data; // Store the customer data in the global array
+    } catch (error) {
+        console.error("Error fetching customers:", error);
+        showToast({ type: "error", message: "Failed to fetch customers!" });
+    }
+};
 
 // Get customer details
 export const getCustomerDetails = async (userId: number) => {

@@ -1,11 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { FiShoppingCart, FiUser, FiMessageSquare, FiMenu } from "react-icons/fi";
+import {FiShoppingCart, FiUser, FiMessageSquare, FiMenu, FiLogOut} from "react-icons/fi";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import { getProducts } from "@/apis/productApi/productApi";
+import {getProducts} from "@/apis/productApi/productApi";
+import {useRouter} from "next/navigation";
+import {parseJwt} from "@/utils/tokenUtils";
 
 interface Suggestion {
     productId: number;
@@ -41,11 +42,11 @@ const TopNavbar: React.FC = () => {
             <div className="flex items-center justify-between md:justify-start">
 
                 {/* Logo Section */}
-                <LogoSection />
+                <LogoSection/>
 
                 {/* Desktop and Tablet Navigation Links */}
                 <div className="hidden md:flex space-x-6 ml-6">
-                    <NavigationLinks />
+                    <NavigationLinks/>
                 </div>
 
                 {/* Centered Search Bar for Desktop and Tablet */}
@@ -61,12 +62,12 @@ const TopNavbar: React.FC = () => {
                 </div>
 
                 {/* Icons Section for All Screens */}
-                <IconsSection />
+                <IconsSection/>
 
                 {/* Mobile Hamburger Menu Icon */}
                 <div className="md:hidden flex items-center">
                     <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                        <FiMenu className="text-2xl text-black" />
+                        <FiMenu className="text-2xl text-black"/>
                     </button>
                 </div>
             </div>
@@ -86,7 +87,7 @@ const TopNavbar: React.FC = () => {
             {/* Mobile Menu Overlay */}
             {isMobileMenuOpen && (
                 <div className="md:hidden mt-4 flex flex-col items-center space-y-4">
-                    <NavigationLinks />
+                    <NavigationLinks/>
                 </div>
             )}
         </nav>
@@ -129,11 +130,11 @@ interface SearchBarSectionProps {
 }
 
 const SearchBarSection: React.FC<SearchBarSectionProps> = ({
-    searchQuery,
-    setSearchQuery,
-    handleSuggestionSelect,
-    suggestions,
-}) => (
+                                                               searchQuery,
+                                                               setSearchQuery,
+                                                               handleSuggestionSelect,
+                                                               suggestions,
+                                                           }) => (
     <div className="w-full max-w-xs md:max-w-md">
         <SearchBar
             id="mainSearchBar"
@@ -151,18 +152,44 @@ const SearchBarSection: React.FC<SearchBarSectionProps> = ({
     </div>
 );
 
-const IconsSection: React.FC = () => (
-    <div className="flex items-center space-x-6">
-        <Link href="/cart">
-            <FiShoppingCart className="text-xl text-black hover:text-carnation-400" />
-        </Link>
-        <Link href="/auth/login">
-            <FiUser className="text-xl text-black hover:text-carnation-400" />
-        </Link>
-        <Link href="/chat/customerChat">
-            <FiMessageSquare className="text-xl text-black hover:text-carnation-400" />
-        </Link>
-    </div>
-);
+
+const IconsSection: React.FC = () => {
+    const router = useRouter();
+
+    const handleUserClick = () => {
+        const token = localStorage.getItem('accessToken');
+
+        if (token) {
+            // Navigate to customer profile if token exists
+            router.push(`/customer/profile`);
+        } else {
+            // Navigate to login if token doesn't exist
+            router.push('/auth/login');
+        }
+    };
+
+    function handlelogOut() {
+        localStorage.clear();
+        router.push('/auth/login');
+
+    }
+
+    return (
+        <div className="flex items-center space-x-6">
+            <Link href="/cart">
+                <FiShoppingCart className="text-xl text-black hover:text-carnation-400" />
+            </Link>
+            <button onClick={handleUserClick} className="focus:outline-none">
+                <FiUser className="text-xl text-black hover:text-carnation-400" />
+            </button>
+            <Link href="/chat/customerChat">
+                <FiMessageSquare className="text-xl text-black hover:text-carnation-400" />
+            </Link>
+            <button onClick={handlelogOut} className="focus:outline-none">
+                <FiLogOut className="text-xl text-black hover:text-carnation-400"/>
+            </button>
+        </div>
+    );
+};
 
 export default TopNavbar;

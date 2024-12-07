@@ -261,6 +261,7 @@ import {getCustomerDetails} from "@/apis/customerAPIs/customerAPI";
 import { placeOrder } from '@/apis/orderApi/orderApi';
 import { getCartItems, initiateOrder, confirmOrder, cancelOrder, configurePayhere } from '@/apis/cartApi/cartApi'
 import { showToast } from '@/components/Messages/showMessage';
+import {getUserID, parseJwt} from "@/utils/tokenUtils";
 
 export interface CartItemType {
     productId: number;
@@ -308,7 +309,8 @@ declare global {
 }
 
 const Cart: React.FC = () => {
-    const userId = 1;
+
+    const userId = getUserID();
     const shippingCharge = 200;
     const [cartItems, setCartItems] = React.useState<CartItemType[]>([]);
     // const [isPayhereLoaded, setIsPayhereLoaded] = useState(false);

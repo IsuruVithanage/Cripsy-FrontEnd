@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import {orderColumns, Order} from '@/components/Table/Columns';
 import TableWithPagi from '@/components/Table/TableWithPagi';
 import {getCustomerStatusedOrders} from "@/apis/orderApi/orderApi";
+import {getUserID} from "@/utils/tokenUtils";
 
 export const RefundOrderSection = () => {
     const [filteredData, setFilteredData] = useState<Order[]>([]);
 
     useEffect(() => {
         const getData=async () => {
-            setFilteredData(await getCustomerStatusedOrders(1,"Refund"));
+            setFilteredData(await getCustomerStatusedOrders(getUserID(),"Refund"));
         }
         getData()
 

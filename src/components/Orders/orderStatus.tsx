@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import Popup from "../Popup/Popup";
 import { Order } from "../Table/Columns";
+import {updateOrderStatus} from "@/apis/orderApi/orderApi";
 
 interface OrderStatusPopupProps {
     isDialogOpen: boolean;
@@ -20,9 +21,14 @@ const OrderStatusPopup: React.FC<OrderStatusPopupProps> = ({
         { label: "Delivered", value: "Delivered" },
     ];
 
+    const [selectedOption, setSelectedOption] = useState("");
+    console.log(selectedOption)
+    console.log(selectedOrder)
+
     const handleSave = () => {
         console.log("Order Status Updated:", selectedOrder);
-        setIsDialogOpen(false); // Close the popup after saving
+        updateOrderStatus(selectedOrder?.orderId,selectedOption)
+        setIsDialogOpen(false);
     };
 
     return (
@@ -40,7 +46,7 @@ const OrderStatusPopup: React.FC<OrderStatusPopupProps> = ({
                     <Dropdown
                         options={options}
                         placeholder="Select Order Status"
-                        onChange={(value) => console.log("Selected Status:", value)}
+                        onChange={(value) => setSelectedOption(value)}
                     />
                 </div>
             </div>

@@ -32,7 +32,7 @@ export interface Admin {
 // order interface
 export interface Order {
     orderId: number;
-    customerID: number;
+    customerID: string;
     deliveryPersonId: number;
     deliveredDate: string;
     orderStatus: string;
@@ -145,7 +145,7 @@ export const adminColumns: Column<Admin>[] = [
 export const orderColumns: Column<Order>[] = [
 
     { header: "OrderId", accessor: "orderId" },
-    { header: "CustomerId", accessor: "customerID" },
+    { header: "Customer Name", accessor: "customerID" },
     { header: "DeliveryPerson", accessor: "deliveryPersonId" },
     { header: "Order Status", accessor: "orderStatus" },
     { header: "Total", accessor: "totalPrice" },

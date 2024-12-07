@@ -1,12 +1,11 @@
 "use client"
 import React, { use, useEffect } from 'react';
 import { redirect } from 'next/navigation';
-import item from "@/data/productIem.json";
 import Overview from "@/section/productPageSections/Overview";
 import Description from "@/section/productPageSections/Description";
 import RatingAndReviews from "@/section/productPageSections/RatingAndReviews";
-import RelatedItems from "@/section/productPageSections/RelatedItems";
 import { getProductItemDetails } from '@/apis/productApi/productApi';
+import {getUserID, getUserName} from "@/utils/tokenUtils";
 
 
 interface ProductItemType {
@@ -41,8 +40,11 @@ interface ProductItemProps {
 const ProductItem: React.FC<ProductItemProps> = ({params}) => {
     const [productItem, setProductItem] = React.useState<Partial<ProductItemType>>({});
     const productId = Number(use(params).productId);
-    const userId = 1;
-    const userName = "user1";
+
+
+    const userId = getUserID();
+    const userName = getUserName();
+
 
     const {
         name = "",
@@ -107,7 +109,7 @@ const ProductItem: React.FC<ProductItemProps> = ({params}) => {
             <Overview {...productData} />
             <Description description={description} />
             <RatingAndReviews {...ratingAndReviewsData} />
-            <RelatedItems relatedItems={item.relatedItems} />
+            {/*<RelatedItems relatedItems={item.relatedItems} />*/}
         </div>
     );
 };

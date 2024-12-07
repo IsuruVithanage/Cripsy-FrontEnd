@@ -1,5 +1,4 @@
 import axios from "axios";
-import { showToast } from "@/components/Messages/showMessage";
 // Axios instance with base URL
 const api = axios.create({
     // baseURL: process.env.NEXT_PUBLIC_BASE_URL
@@ -8,7 +7,7 @@ const api = axios.create({
 
 //Get Delivery Person  Details
 export const getDeliveryPersonDetails = async () => {
-    try{
+    try {
         const response = await api.get(`/api/delivery/getAll`);
         return response.data;
     } catch (error) {
@@ -19,7 +18,7 @@ export const getDeliveryPersonDetails = async () => {
 
 //Get Delervery Person Details by ID
 export const getDeliveryPersonDetailsById = async (id: any) => {
-    try{
+    try {
         const response = await api.get(`/api/delivery/${id}`);
         return response.data;
     } catch (error) {
@@ -30,7 +29,7 @@ export const getDeliveryPersonDetailsById = async (id: any) => {
 
 //Add Delivery Person
 export const addDeliveryPerson = async (data: any) => {
-    try{
+    try {
         const response = await api.post(`/api/delivery`, data);
         return response.data;
     } catch (error) {
@@ -41,7 +40,7 @@ export const addDeliveryPerson = async (data: any) => {
 
 //Update Delivery Person
 export const updateDeliveryPerson = async (id: any, data: any) => {
-    try{
+    try {
         const response = await api.put(`/api/delivery/${id}`, data);
         return response.data;
     } catch (error) {
@@ -52,7 +51,7 @@ export const updateDeliveryPerson = async (id: any, data: any) => {
 
 //Delete Delivery Person
 export const deleteDeliveryPerson = async (id: any) => {
-    try{
+    try {
         const response = await api.delete(`/api/delivery/${id}`);
         return response.data;
     } catch (error) {
@@ -62,9 +61,9 @@ export const deleteDeliveryPerson = async (id: any) => {
 }
 
 //Update Delivery Person by Status
-export const updateDeliveryPersonByStatus = async (id:any,availability:boolean) => {
-    try{
-        const response = await api.put(`/api/delivery/{id}/availability/${availability}`);
+export const updateDeliveryPersonByStatus = async (id: any, availability: boolean) => {
+    try {
+        const response = await api.put(`/api/delivery/${id}/availability?availability=${availability}`);
         return response.data;
     } catch (error) {
         console.log("Error edit the delivery person availability", error);

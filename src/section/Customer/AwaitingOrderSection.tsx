@@ -3,13 +3,15 @@ import {useState, useEffect} from "react";
 import {orderColumns, Order} from '@/components/Table/Columns';
 import TableWithPagi from '@/components/Table/TableWithPagi';
 import {getCustomerStatusedOrders} from "@/apis/orderApi/orderApi";
+import {getUserID} from "@/utils/tokenUtils";
 
 export const AwaitingOrderSection = () => {
     const [filteredData, setFilteredData] = useState<Order[]>([]);
 
+
     useEffect(() => {
         const getData = async () => {
-            setFilteredData(await getCustomerStatusedOrders(1, "Placed"));
+            setFilteredData(await getCustomerStatusedOrders(getUserID(), "Placed"));
         }
         getData()
     }, []);
@@ -21,7 +23,7 @@ export const AwaitingOrderSection = () => {
     return (
         <>
             <div className="flex justify-between mb-3 mt-6">
-                <h5 className="flex items-center text-lg font-semibold font-inter">Refund Details</h5>
+                <h5 className="flex items-center text-lg font-semibold font-inter">Awaiting Orders Details</h5>
             </div>
             <div className="w-full">
 

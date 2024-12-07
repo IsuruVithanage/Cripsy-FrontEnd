@@ -104,6 +104,8 @@ export default function AllProductsPage() {
                             <div key={product.productId} className="w-full flex justify-center">
                                 <div className="w-full max-w-[300px]">
                                     <ProductCard
+                                        key={product.productId}
+                                        productId={product.productId}
                                         imageSrc={product.imageUrl}
                                         title={product.name}
                                         description={product.description}

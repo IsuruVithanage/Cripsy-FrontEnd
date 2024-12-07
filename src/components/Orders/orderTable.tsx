@@ -2,9 +2,12 @@
 import { useEffect, useState } from "react";
 import { orderColumns, Order } from "../Table/Columns";
 import TableWithPagi from "../Table/TableWithPagi";
-import jsonData from "../../data/data.json"; // Import the JSON file
 import OrderStatusPopup from "../Orders/orderStatus";
-import { Switch } from "@/components/Switch/Switch"; // Import the Switch component
+import { Switch } from "@/components/Switch/Switch";
+import {getByDeliverIdOrders} from "@/apis/orderApi/orderApi";
+import {getUserID} from "@/utils/tokenUtils";
+import {getDeliveryPersonDetailsById, updateDeliveryPersonByStatus} from "@/apis/Delivery/DeliveryApi";
+import {showToast} from "@/components/Messages/showMessage"; // Import the Switch component
 
 const OrderTable = () => {
     const [filteredData, setFilteredData] = useState<Order[]>([]);
@@ -20,8 +23,22 @@ const OrderTable = () => {
     };
 
     useEffect(() => {
-        // setFilteredData(jsonData?.order || []);
+        const getData = async () => {
+            setFilteredData(await getByDeliverIdOrders(getUserID()));
+            setIsChecked((await getDeliveryPersonDetailsById(getUserID())).availability)
+        }
+        getData()
     }, []);
+
+    function handleAvailability() {
+        updateDeliveryPersonByStatus(getUserID(),!isChecked)
+        setIsChecked(!isChecked)
+        console.log(isChecked)
+        showToast({
+            type: 'success',
+            message: 'Product added successfully!'
+        })
+    }
 
     return (
         <div className="shadow-xl rounded-lg m-8 px-4 py-9">
@@ -34,7 +51,7 @@ const OrderTable = () => {
                     <p>Anvalabilty : <Switch
                      className="data-[state=checked]:bg-carnation-400 data-[state=unchecked]:bg-slate-200"
                      checked={isChecked}
-                     onCheckedChange={setIsChecked}/></p>
+                     onCheckedChange={handleAvailability}/></p>
                 </div>
             </div>
 

@@ -1,11 +1,12 @@
 "use client";
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
 import {LoginSchema} from "@/schema/AuthSchema/LoginSchema";
 import {userLogin} from "@/apis/AuthAPIs/auth";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
+import {parseJwt} from "@/utils/tokenUtils";
 
 interface LoginFormValues {
     username: string;

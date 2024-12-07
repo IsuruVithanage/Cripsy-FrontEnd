@@ -32,7 +32,6 @@ const AddProductForm = () => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [resetImages, setResetImages] = useState(false);
     const [resetEditor, setRestEditor] = useState(false);
-    const router = useRouter();
     const searchParams = useSearchParams();
     let [id, setId] = useState(0);
 

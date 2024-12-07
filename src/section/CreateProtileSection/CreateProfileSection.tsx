@@ -3,12 +3,10 @@ import React, { useEffect, useState } from "react";
 import { getCustomerDetails, updateCustomer } from "@/apis/customerAPIs/customerAPI";
 import CustomButton from "@/components/Button/CustomButton";
 import {showToast} from "@/components/Messages/showMessage";
+import {getUserID} from "@/utils/tokenUtils";
 
-interface CreateProfileSectionProps {
-  customerId: number;
-}
 
-export const CreateProfileSection: React.FC<CreateProfileSectionProps> = ({ customerId }) => {
+export const CreateProfileSection = () => {
   const [profile, setProfile] = useState({
     userName: "",
     email: "",
@@ -25,7 +23,7 @@ export const CreateProfileSection: React.FC<CreateProfileSectionProps> = ({ cust
     const fetchCustomerDetails = async () => {
       try {
         setLoading(true);
-        const data = await getCustomerDetails(customerId);
+        const data = await getCustomerDetails(getUserID());
         setProfile(data);
       } catch (err) {
         setError("Failed to fetch customer details. Please try again.");
@@ -36,13 +34,13 @@ export const CreateProfileSection: React.FC<CreateProfileSectionProps> = ({ cust
     };
 
     fetchCustomerDetails();
-  }, [customerId]);
+  }, []);
 
   // Update customer details
   const updateProfile = async () => {
     try {
       setLoading(true);
-      await updateCustomer(customerId, profile);
+      await updateCustomer(getUserID(), profile);
       showToast({
         type: 'success',
         message: 'Profile Updated successfully!',
