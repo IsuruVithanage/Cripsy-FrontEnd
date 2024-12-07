@@ -1,20 +1,13 @@
 "use client";
-<<<<<<< HEAD
-import React, {FormEvent, useEffect, useState} from "react";
-=======
 import React, { FormEvent, useState } from "react";
->>>>>>> 3576ffc1f96b90e70127c9e3ff50b995983fc6cf
 import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
 import { LoginSchema } from "@/schema/AuthSchema/LoginSchema";
 import { userLogin } from "@/apis/AuthAPIs/auth";
 import Link from "next/link";
-<<<<<<< HEAD
 import {useRouter} from "next/navigation";
-import {parseJwt} from "@/utils/tokenUtils";
-=======
-import { useRouter } from "next/navigation";
->>>>>>> 3576ffc1f96b90e70127c9e3ff50b995983fc6cf
+
+
 
 interface LoginFormValues {
     username: string;
