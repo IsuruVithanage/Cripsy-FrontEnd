@@ -1,10 +1,10 @@
 "use client";
 
-import React, {FormEvent, useEffect, useState} from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import CustomButton from "@/components/Button/CustomButton";
-import {verifyOTP} from "@/apis/AuthAPIs/auth";
+import { verifyOTP } from "@/apis/AuthAPIs/auth";
 import { InputOTP, InputOTPGroup, InputOTPItem } from "keep-react";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const VerifyOtpFrom = () => {
 
@@ -42,7 +42,7 @@ const VerifyOtpFrom = () => {
 
         setLoading(true);
         try {
-            await verifyOTP(email , value, router);
+            await verifyOTP(email, value, router);
             setValue("")
             setErrors("");
         } catch (error: unknown) {
@@ -53,8 +53,9 @@ const VerifyOtpFrom = () => {
         }
     };
 
-    const cancelSubmit = ()=>{
+    const cancelSubmit = () => {
         setEmail('')
+        router.push('/auth/login');
     }
 
     return (
@@ -64,7 +65,7 @@ const VerifyOtpFrom = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <img className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <img className="h-14 w-auto" src="/LoginPhoto.png" alt="Shopping girl" />
             </div>
 
             {/* Right Section (Login Form) */}
@@ -75,7 +76,7 @@ const VerifyOtpFrom = () => {
                             <h2 className="text-4xl font-bold">OTP</h2>
                             <p className="text-gray-500">Verification</p>
                         </div>
-                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
+                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo" />
                     </div>
 
                     <form onSubmit={handleOtpVerification}>
@@ -112,11 +113,11 @@ const VerifyOtpFrom = () => {
                         <div className="mt-6">
                             <CustomButton
                                 buttonLabel={loading ? "Submitting..." : "Submit"}
-                                buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg"
+                                buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg h-10"
                             />
                             <CustomButton
                                 buttonLabel={"Cancel"}
-                                buttonClassName="w-full bg-['#EAEAEA'] py-3 text-black mt-2 rounded-lg"
+                                buttonClassName="w-full bg-['#EAEAEA'] py-3 text-black mt-2 rounded-lg h-10 hover:text-white hover:bg-gray-700 border"
                                 onClick={cancelSubmit}
                             />
                         </div>

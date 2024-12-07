@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Popup from "@/components/Popup/Popup";
-import { Select, SelectItem } from "../ui/select"; // Dropdown component
 
 interface AddDeliveryPersonProps {
     isOpen: boolean;

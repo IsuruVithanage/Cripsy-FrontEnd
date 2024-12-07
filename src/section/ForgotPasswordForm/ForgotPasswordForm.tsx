@@ -1,11 +1,11 @@
 "use client";
 
-import React, {FormEvent, useState} from "react";
+import React, { FormEvent, useState } from "react";
 import InputField from "@/components/InputField/InputField";
 import CustomButton from "@/components/Button/CustomButton";
-import {forgotPassword} from "@/apis/AuthAPIs/auth";
-import {ForgotPasswordSchema} from "@/schema/AuthSchema/ForgotPasswordSchema";
-import {useRouter} from "next/navigation";
+import { forgotPassword } from "@/apis/AuthAPIs/auth";
+import { ForgotPasswordSchema } from "@/schema/AuthSchema/ForgotPasswordSchema";
+import { useRouter } from "next/navigation";
 
 interface ForgotPasswordFormValues {
     email: string;
@@ -40,7 +40,7 @@ const ForgotPasswordFrom = () => {
         }
         setLoading(true);
         try {
-            await forgotPassword(formData,router);
+            await forgotPassword(formData, router);
             setFormData({
                 email: '',
             });
@@ -56,10 +56,11 @@ const ForgotPasswordFrom = () => {
 
     }
 
-    const cancelSubmit = ()=>{
+    const cancelSubmit = () => {
         setFormData({
             email: '',
         });
+        router.push('/auth/login');
     }
 
     return (
@@ -69,7 +70,7 @@ const ForgotPasswordFrom = () => {
                 <h4 className="text-center text-2xl font-semibold font-['Schoolbell'] mb-6">
                     Crisp Deals, Every Day
                 </h4>
-                <img className="h-18 w-auto" src="/LoginPhoto.png" alt="Shopping girl"/>
+                <img className="h-18 w-auto" src="/LoginPhoto.png" alt="Shopping girl" />
             </div>
 
             {/* Right Section (Login Form) */}
@@ -80,14 +81,14 @@ const ForgotPasswordFrom = () => {
                             <h2 className="text-4xl font-bold">Forgot</h2>
                             <p className="text-gray-500">your password ?</p>
                         </div>
-                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo"/>
+                        <img className="h-16" src="/CripsyLogo.png" alt="Cripsy Logo" />
                     </div>
 
                     <form onSubmit={handleSignUp}>
                         {/* Input Fields */}
                         <div className="my-8">
 
-                            <div className="flex items-center justify-between mb-6 bg-red-400">
+                            <div className="flex items-center justify-between mb-6 font-semibold">
                                 <p className="text-center mt-6 mb-4">
                                     Enter your email address associated with your account and
                                     we will send you an OTP to reset your password.
@@ -104,6 +105,7 @@ const ForgotPasswordFrom = () => {
                                     icon={undefined}
                                     label={false}
                                     labelName="email"
+
                                 />
                             </div>
 
@@ -111,14 +113,14 @@ const ForgotPasswordFrom = () => {
 
 
                         {/* Submit and Cancel Buttons */}
-                        <div className="mt-6">
+                        <div className="mt-4">
                             <CustomButton
                                 buttonLabel={loading ? "Submitting..." : "Submit"}
-                                buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg"
+                                buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg h-10"
                             />
                             <CustomButton
-                                buttonLabel={ "Cancel"}
-                                buttonClassName="w-full bg-['#EAEAEA'] py-3 text-black mt-2 rounded-lg"
+                                buttonLabel={"Cancel"}
+                                buttonClassName="w-full bg-['#EAEAEA'] py-3 text-black mt-2 rounded-lg h-10 hover:text-white hover:bg-gray-700 border"
                                 onClick={cancelSubmit}
                             />
                         </div>

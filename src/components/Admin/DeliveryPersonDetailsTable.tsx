@@ -2,14 +2,12 @@
 import { useState, useEffect } from "react";
 import ProductTableWithPagi from "@/components/Table/TableWithPagi";
 import { deliveryPersonColumns } from "@/components/Table/Columns";
-import delieveryPersonData from "@/data/delieveryPersonData.json";
 import CustomButton from "@/components/Button/CustomButton";
 import DeleteConfirm from "@/components/DeletePopup/DeleteConfirm";
 import { DeliveryPerson } from "@/components/Table/Columns";
-import AddDeliveryPersonForm from "@/section/AddDeliveryPersonForm/AddDeliveryPersonForm";
 import AddDeliveryPerson from "@/components/Admin/AddNewDelieveryPerson";
 import {getDeliveryPersonDetails,deleteDeliveryPerson} from "@/apis/Delivery/DeliveryApi"
-import { log } from "console";
+
 
 
 const DeliveryPersonDetailsTable = () => {
@@ -34,13 +32,13 @@ const DeliveryPersonDetailsTable = () => {
         }
     };
 
-    const handleAddAdmin = (newAdmin: DeliveryPerson) => {
-        setFilteredData((prevData) => [...prevData, newAdmin]);
-    };
+    // const handleAddAdmin = (newAdmin: DeliveryPerson) => {
+    //     setFilteredData((prevData) => [...prevData, newAdmin]);
+    // };
 
-    const handleCancelAddAdmin = () => {
-        setIsNewAdminPopupOpen(false);
-    };
+    // const handleCancelAddAdmin = () => {
+    //     setIsNewAdminPopupOpen(false);
+    // };
 
     // const handleAddNewDeliveryPerson = (newPerson: DeliveryPersonFormData) => {
     //     // Update your delivery person list with the new person
@@ -88,8 +86,8 @@ const DeliveryPersonDetailsTable = () => {
                     isOpen={isNewAdminPopupOpen}
                     onClose={() => setIsNewAdminPopupOpen(false)}
                     //title={`Order ID: ${selectedDeliveryPerson.} - ${selectedDeliveryPerson.productName}`}
-                    title={"hjj"}
-                    description="Manage the details of the selected order."
+                    title={"New Delivery Person"}
+                    description=""
                     onSave={() => setIsNewAdminPopupOpen(false)}
                 >
 

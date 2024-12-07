@@ -132,7 +132,7 @@ const SignupForm = () => {
                                 <InputField
                                     id="confirmPassword"
                                     type="password"
-                                    placeholder="confirm Password"
+                                    placeholder="Confirm Password"
                                     value={formData.confirmPassword || ''}
                                     onChange={(e) => handleInputChange(e, 'confirmPassword')}
                                     icon={undefined}
@@ -156,7 +156,7 @@ const SignupForm = () => {
                         <div className="mt-6">
                             <CustomButton
                                 buttonLabel={loading ? "Signing in..." : "SignUp"}
-                                buttonClassName="w-full py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg"
+                                buttonClassName="w-full h-10 py-3 text-white bg-gradient-to-r from-red-500 to-red-700 rounded-lg"
                             />
                         </div>
                     </form>

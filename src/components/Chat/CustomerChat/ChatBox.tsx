@@ -14,16 +14,28 @@ const ChatBox = () => {
         const token = localStorage.getItem('accessToken');
         const decodedToken = jwtDecode(token);
 
-        try {
-            const response = await axios.get(
-                `http://localhost:8085/api/messages/getAllMessages/${decodedToken.id}`
-            );
-            setMessages(response.data);
+        const existingConversation = await axios.get(`http://localhost:8085/api/conversations/getConversation/${decodedToken.id}`);
 
-            const fetchedConversationId = response.data[0]?.conversationId;
-            localStorage.setItem('conversationId', fetchedConversationId);
-        } catch (error) {
-            console.error('Error fetching messages:', error);
+        if(!existingConversation){
+            const conversationData = {
+                adminId:1,
+                customerId: decodedToken.id,
+                customerName: decodedToken.username
+            };
+            const createdConversation = await axios.post('http://localhost:8085/api/create', conversationData);
+            console.log(createdConversation.data);
+        }else{
+            try {
+                const response = await axios.get(
+                    `http://localhost:8085/api/messages/getAllMessages/${decodedToken.id}`
+                );
+                setMessages(response.data);
+
+                const fetchedConversationId = response.data[0]?.conversationId;
+                localStorage.setItem('conversationId', fetchedConversationId);
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            }
         }
     };
 
